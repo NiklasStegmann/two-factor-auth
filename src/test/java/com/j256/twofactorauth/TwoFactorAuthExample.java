@@ -18,8 +18,13 @@ public class TwoFactorAuthExample {
 
 		// this is the name of the key which can be displayed by the authenticator program
 		String keyId = "user@j256.com";
+
 		// generate the QR code
 		System.out.println("Image url = " + TimeBasedOneTimePasswordUtil.qrImageUrl(keyId, base32Secret));
+
+		// generate the QR code with specified dimension
+		System.out.println("Image url = " + TimeBasedOneTimePasswordUtil.qrImageUrl(keyId, base32Secret, "400x400"));
+
 		// we can display this image to the user to let them load it into their auth program
 
 		// we can use the code here and compare it against user input

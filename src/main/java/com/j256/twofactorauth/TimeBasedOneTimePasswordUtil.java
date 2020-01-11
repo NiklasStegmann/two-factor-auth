@@ -51,9 +51,7 @@ public class TimeBasedOneTimePasswordUtil {
 
 	static {
 		char[] chars = new char[NUM_DIGITS_OUTPUT];
-		for (int i = 0; i < chars.length; i++) {
-			chars[i] = '0';
-		}
+		Arrays.fill(chars, '0');
 		blockOfZeros = new String(chars);
 	}
 
@@ -238,8 +236,24 @@ public class TimeBasedOneTimePasswordUtil {
 	 *            Secret string that will be used when generating the current number.
 	 */
 	public static String qrImageUrl(String keyId, String secret) {
+		return qrImageUrl(keyId, secret, "200x200");
+	}
+
+	/**
+	 * Return the QR image url thanks to Google. This can be shown to the user and scanned by the authenticator program
+	 * as an easy way to enter the secret.
+	 *
+	 * @param keyId
+	 *            Name of the key that you want to show up in the users authentication application. Should already be
+	 *            URL encoded.
+	 * @param secret
+	 *            Secret string that will be used when generating the current number.
+	 * @param dimension
+	 *            Size of the QR image
+	 */
+	public static String qrImageUrl(String keyId, String secret, String dimension) {
 		StringBuilder sb = new StringBuilder(128);
-		sb.append("https://chart.googleapis.com/chart?chs=200x200&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=");
+		sb.append("https://chart.googleapis.com/chart?chs=" + dimension + "&cht=qr&chl=200x200&chld=M|0&cht=qr&chl=");
 		addOtpAuthPart(keyId, secret, sb);
 		return sb.toString();
 	}
